@@ -25,6 +25,7 @@
 .sign-in {
   max-width: 45%;
   margin: auto;
+  padding: 10px;
 }
 .sign-in label {
   float: left;
@@ -33,6 +34,17 @@
 .button {
   float: right;
 }
+
+.results {
+  padding: 30px;
+  margin: auto;
+}
+
+.contact {
+  padding: 10px;
+  margin: auto;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -16,24 +16,45 @@ class App extends Component {
   }
 
       handleChange(event) {
-                    localStorage.setItem({[event.target.name]: event.target.value})
                     this.setState({[event.target.name]: event.target.value
                   });
   }
 
   handleClick (event) {
+    let user = this.state.username
+    let pass = this.state.password
+
     event.preventDefault()
-    
+
+    localStorage.setItem('username', user)
+    localStorage.setItem('password', pass)
+
     request
       .get("http://localhost:8000/contacts")
-      .auth( 'Vader', 'father')
+      .auth((localStorage.getItem('username')),(localStorage.getItem('password')))
       .then(
         (result) => {
           this.setState({
-            contacts: result
+            contacts: result.body
           })
         }
       )
+    }
+
+    arraytoDisplay() {
+      let info = this.state.contacts; 
+      let newArray = info.map((contact, id) => (
+        <div className="contact" key={id}>
+        <div>Name: {contact.name}</div>
+        <div>Email: {contact.email}</div>
+        <div>Phone: {contact.phone}</div>
+        <div>Address: {contact.address}</div>
+        <div>Birthday: {contact.birthday}</div>
+        <div>Company: {contact.company}</div>
+        <div>Title: {contact.title}</div>
+        <hr/>
+        </div>))
+        return newArray
     }
 
   render () { 
@@ -55,10 +76,13 @@ class App extends Component {
             <div className="submit">
                 <button type="button" className="button" onClick={this.handleClick}>Submit</button>
             </div>
-            <div className="input-field">
+              <div className="input-field">
                 <label><input type="checkbox"/> Remember me</label>
+              </div>
             </div>
-    </div>
+            <hr/>
+            <br/>
+            <div className="results" type="text">{this.arraytoDisplay()}</div>
     </div>
     );
   }
