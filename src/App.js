@@ -3,21 +3,40 @@ import React, { Component } from 'react';
 import './App.css';
 import request from 'superagent';
 
-
 class App extends Component {
   constructor () {
     super ()
     this.state = {
-      Username: '',
+      username: '',
       password: '',
+      contacts: [],
     }
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  pullContacts () {
-    request.get('http://localhost:8000/contacts')
+      handleChange(event) {
+                    localStorage.setItem({[event.target.name]: event.target.value})
+                    this.setState({[event.target.name]: event.target.value
+                  });
   }
 
-  render() {
+  handleClick (event) {
+    event.preventDefault()
+    
+    request
+      .get("http://localhost:8000/contacts")
+      .auth( 'Vader', 'father')
+      .then(
+        (result) => {
+          this.setState({
+            contacts: result
+          })
+        }
+      )
+    }
+
+  render () { 
     return (
     <div className="App">
           <header className="App-header">
@@ -26,14 +45,16 @@ class App extends Component {
         <div className="sign-in">
             <div className="input-field">
                 <label>Username:</label>
-                <input type="text"/>
+                <input className="user" type="text" name="username" onChange={this.handleChange} value={this.state.value}/>
             </div>
 
             <div className="input-field">
                 <label>Password:</label>
-                <input type="password"/>
+                <input className="pass" type="password" name ="password" onChange={this.handleChange} value={this.state.value}/>
             </div>
-
+            <div className="submit">
+                <button type="button" className="button" onClick={this.handleClick}>Submit</button>
+            </div>
             <div className="input-field">
                 <label><input type="checkbox"/> Remember me</label>
             </div>
@@ -42,5 +63,4 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+export default App
