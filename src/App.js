@@ -81,7 +81,6 @@ class App extends Component {
               </div>
             </div>
             <hr/>
-            <br/>
             <div className="results" type="text">{this.arraytoDisplay()}</div>
     </div>
     );
