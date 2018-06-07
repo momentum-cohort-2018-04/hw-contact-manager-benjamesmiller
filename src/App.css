@@ -9,9 +9,9 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  height: 25%;
   padding: 20px;
-  color: white;
+  color: whitesmoke;
 }
 
 .App-title {
@@ -20,6 +20,29 @@
 
 .App-intro {
   font-size: large;
+}
+
+.sign-in {
+  max-width: 45%;
+  margin: auto;
+  padding: 10px;
+}
+.sign-in label {
+  float: left;
+}
+
+.button {
+  float: right;
+}
+
+.results {
+  padding: 30px;
+  margin: auto;
+}
+
+.contact {
+  padding: 10px;
+  margin: auto;
 }
 
 @keyframes App-logo-spin {
